@@ -14,3 +14,4 @@ In Pinia, store state properties are reactive properties on a reactive proxy; de
 
 ### 5. Booking makes two requests: POST the booking, then PATCH the seat count. What happens to the data if the second one fails? How could the server avoid this?
 If the POST request succeeds but the PATCH request fails (for instance due to network loss, server crash, or validation failure), the database is left in an inconsistent state: a booking record exists, but the event's `booked` count was never updated, leading to overselling or mismatched seat counts. The server could avoid this by handling both operations as a single atomic transaction inside one backend endpoint (e.g. POST `/bookings` automatically creates the booking record and increments the event's booked count inside an ACID database transaction), rolling back entirely if any part fails.
+
